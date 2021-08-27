@@ -1,0 +1,41 @@
+﻿@model TaskProject.Entities.Models.User
+<div class="modal-header">
+    <button class="btn btn-sm pull-right btn-danger" type="button" id="btnCloseModal" data-dismiss="modal">X</button>
+    <h2>Create</h2>
+</div>
+<div class="modal-body">
+    @using (Html.BeginForm())
+    {
+        <div class="form-horizontal" id="CreateForm">
+            @Html.AntiForgeryToken()
+
+            <div class="form-group">
+                <label for="UserName">Name - Surname</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="UserName" id="UserName" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Eposta">E-mail</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="email" name="Eposta" id="Eposta" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleType" class="control-label"></label>
+                @Html.DropDownList("RoleType","RolId")
+            </div>
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="Address" id="Address" required />
+                </div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-sm btn-success" type="button" onclick="CreateNewCompany()">Save</button>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,76 @@
+-- Table: public.Company
+
+-- DROP TABLE public."Company";
+
+CREATE TABLE public."Company"
+(
+    "Id" integer NOT NULL DEFAULT nextval('"Company_Id_seq"'::regclass),
+    "CompanyDetail" jsonb,
+    CONSTRAINT "Company_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Company"
+    OWNER to postgres;
+
+-- Table: public.Role
+
+-- DROP TABLE public."Role";
+
+CREATE TABLE public."Role"
+(
+    "Id" integer NOT NULL DEFAULT nextval('"Role_Id_seq"'::regclass),
+    "RoleName" character varying(20) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT "Role_pkey" PRIMARY KEY ("Id")
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."Role"
+    OWNER to postgres;
+
+
+-- Table: public.User
+
+-- DROP TABLE public."User";
+
+CREATE TABLE public."User"
+(
+    "Id" integer NOT NULL DEFAULT nextval('"User_Id_seq"'::regclass),
+    "RoleId" integer NOT NULL,
+    "CompanyId" integer NOT NULL,
+    "UserDetail" jsonb,
+    CONSTRAINT "User_pkey" PRIMARY KEY ("Id"),
+    CONSTRAINT usercompany_foreign FOREIGN KEY ("CompanyId")
+        REFERENCES public."Company" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID,
+    CONSTRAINT userrole_foreign FOREIGN KEY ("RoleId")
+        REFERENCES public."Role" ("Id") MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+        NOT VALID
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE public."User"
+    OWNER to postgres;
+-- Index: fki_usercompany_foreign
+
+-- DROP INDEX public.fki_usercompany_foreign;
+
+CREATE INDEX fki_usercompany_foreign
+    ON public."User" USING btree
+    ("CompanyId" ASC NULLS LAST)
+    TABLESPACE pg_default;
+-- Index: fki_userrole_foreign
+
+-- DROP INDEX public.fki_userrole_foreign;
+
+CREATE INDEX fki_userrole_foreign
+    ON public."User" USING btree
+    ("RoleId" ASC NULLS LAST)
+    TABLESPACE pg_default;

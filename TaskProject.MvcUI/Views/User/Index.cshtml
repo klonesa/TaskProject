@@ -1,0 +1,55 @@
+﻿@model  List<TaskProject.Entities.Models.User>
+
+@{
+    ViewBag.Title = "User List";
+}
+
+<h2 class="text-center">User List</h2>
+<div class="row">
+    <div class="col-md-4">
+        <button type="button" class="btn btn-sm btn-success" data-toggle="modal" onclick="RenderActions('/User/Create')" data-target="#modalCreate">Create new</button>
+    </div>
+</div>
+<br />
+<div id="userList">
+    <table id="tableMain" class="table table-hover responsive nowrap" style="width:100%">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>User Role</th>
+                <th>User Detail</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="indexTbody">
+            @foreach (var item in Model)
+            {
+            <tr id="@item.Id">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayTextFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserDetail)
+                </td>
+                <td>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" onclick="RenderActions('/User/Edit/' + @item.Id)" data-target="#modalCreate">Edit</button> |
+                    <button class="btn btn-sm btn-danger" data-toggle="modal" onclick="RenderActions('/User/Delete/' + @item.Id)" data-target="#modalCreate">Delete</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div id="modalCreate" class="modal fade" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="OpenDialog" class="modal-body">
+
+            </div>
+        </div>
+    </div>
+</div>

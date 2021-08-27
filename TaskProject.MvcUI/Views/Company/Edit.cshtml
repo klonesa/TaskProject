@@ -1,0 +1,44 @@
+﻿@model TaskProject.Entities.Models.Company
+<div class="modal-header">
+    <button class="btn btn-sm pull-right btn-danger" type="button" id="btnCloseModal" data-dismiss="modal">X</button>
+    <h2>Edit</h2>
+</div>
+<div class="modal-body">
+    @using (Html.BeginForm("Edit", "Company", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <label for="CompanyName">Company Name</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="CompanyName" id="CompanyName" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="TaxNumber">Tax Number</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="TaxNumber" id="TaxNumber" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Phone">Phone</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="Phone" id="Phone" required />
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <div class="col-xs-5">
+                    <input class="form-control" type="text" name="Address" id="Address" required />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-sm btn-success" onclick="EditCompany(@Model.Id)">Save changes</button>
+        </div>
+    }
+</div>
